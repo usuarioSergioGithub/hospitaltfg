@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+    <header th:replace="plantillasPadre/padre :: header"></header>
+
+
+    <main>
+
+        <!-- Formulario para confirmar la eliminación de los coches -->
+        <div class="position-absolute top-50 start-50 translate-middle hacerZoom">
+            <div class="row">
+                <h1 class="col">Formulario de contacto</h1>
+            </div>
+            <div class="row">
+                <div class="col">Introduce los siguientes datos: </div>
+                <form class="row" th:action="@{/contacta}" method="post" th:object="${mensajesDto}">
+
+                    <div class="row">
+
+                        <div class="col">
+
+                            <!-- Nombre -->
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Nombre: <span class="form-text text-danger">*</span>
+                                </label>
+                                <input
+                                        id="nombre" type="text" class="form-control" th:field="*{nombre}"
+                                >
+                                <span class="form-text text-danger" role="alert"
+                                      th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+
+                            <!-- Apellidos -->
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Apellidos: <span class="form-text text-danger">*</span>
+                                </label>
+                                <input
+                                        id="apellidos" type="text" class="form-control" th:field="*{apellidos}"
+                                >
+                                <span class="form-text text-danger" role="alert"
+                                      th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col">
+
+                            <!-- Asunto -->
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Asunto : <span class="form-text text-danger">*</span>
+                                </label>
+
+                                <select th:field="*{asunto}">
+
+                                    <option th:each="asunto : ${tipoAsunt}"
+                                            th:value="${asunto}"
+                                            th:text="${asunto}">
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Columna 1 -->
+                        <div class="col">
+
+                            <!-- DNI -->
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Correo : <span class="form-text text-danger">*</span>
+                                </label>
+                                <input
+                                        id="dni" type="text" class="form-control" th:field="*{correo}"
+                                >
+                                <span class="form-text text-danger" role="alert"
+                                      th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Columna 1 -->
+                        <div class="col">
+
+                            <!-- DNI -->
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Mensaje : <span class="form-text text-danger">*</span>
+                                </label>
+                                <textarea
+                                        id="mensaje" type="text" class="form-control" th:field="*{mensaje}"
+                                ></textarea>
+                                <span class="form-text text-danger" role="alert"
+                                      th:if="${#fields.hasErrors('mensaje')}" th:errors="*{mensaje}"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <input class="btn btn-secondary col" type="submit" value="Enviar">
+                </form>
+            </div>
+
+            <!-- Mensajes para el usuario -->
+            <div th:replace="plantillasPadre/padre :: mensajes"></div>
+        </div>
+    </main>
+
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:replace="plantillasPadre/padre :: script"></script>

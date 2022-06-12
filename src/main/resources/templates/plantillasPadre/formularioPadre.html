@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <nav th:replace="plantillasPadre/padre :: nav"></nav>
+    <main th:fragment="main">
+        <div class="formulario">
+            <h1 th:text="${datosPlantillaDto.titulo}"></h1>
+
+
+
+        </div>
+    </main>
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:replace="plantillasPadre/padre :: script"></script>

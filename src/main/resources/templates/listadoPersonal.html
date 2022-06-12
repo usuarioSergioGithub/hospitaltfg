@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<header th:replace="plantillasPadre/padre :: header"></header>
+<main>
+    <div>
+        <h1>Listado del personal</h1>
+        <table class="table">
+            <thead>
+            <div class="row" sec:authorize="hasAnyAuthority('creadorWeb','encargadoBasesDeDatos')">
+                <div class="col"></div>
+                <div class="col alert alert-warning">
+                    Como recordatorio, si un paciente tiene cita con el doctor que se va a eliminar,
+                    la cita automaticamente quedará eliminada.
+                </div>
+                <div class="col"></div>
+            </div>
+            <tr>
+
+                <th>Fila</th>
+                <th>dniNColegiado</th>
+                <th>nombre</th>
+                <th>correo</th>
+                <th>apellidos</th>
+                <th>direccion</th>
+                <th>localidad</th>
+                <th>Provincia</th>
+                <th>movil</th>
+                <th>Rol</th>
+
+                <!-- Autorizacion para creador y admin bd-->
+                <span sec:authorize="hasAnyAuthority('creadorWeb','encargadoBasesDeDatos')">
+                    <th>Borrar</th>
+                    <th>Modificación</th>
+                </span>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="contenedorFila cadaPersona" th:each="empleado, i : ${personal}">
+                <form id="formularioPersonal" th:object="${personalModifDto}" action="#" method="">
+                    <td>
+                        <span class="indice" th:text="'Emp. ' + ${i.index}"></span>
+                    </td>
+                    <td>
+                        <span class="persona personaNoModificar" th:text ="${empleado.dniNColegiado}" ></span>
+                        <input class="campo dniNColegiado personaNoModificar form-control" type="hidden" th:field="*{dniNColegiado}">
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('dniNColegiado')}"
+                              th:errors="*{dniNColegiado}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${empleado.nombre}" ></span>
+                        <input class="campo" type="hidden" th:field="*{nombre}" >
+                        <h1 th:errors="*{nombre}"></h1>
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('nombre')}"
+                              th:errors="*{nombre}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${empleado.correo}" ></span>
+                        <input class="campo" type="hidden" th:field="*{correo}" >
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${empleado.apellidos}" ></span>
+                        <input class="campo" type="hidden" th:field="*{apellidos}" >
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('apellidos')}"
+                              th:errors="*{apellidos}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${empleado.direccion}"></span>
+                        <input class="campo" type="hidden" th:field="*{direccion}" >
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('direccion')}"
+                              th:errors="*{direccion}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${empleado.localidad}" ></span>
+                        <input class="campo" type="hidden" th:field="*{localidad}" >
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('localidad')}"
+                              th:errors="*{localidad}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${empleado.provincia}" ></span>
+                        <input class="campo" type="hidden" th:field="*{provincia}" >
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('provincia')}"
+                              th:errors="*{provincia}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${empleado.movil}" ></span>
+                        <input class="campo" type="hidden" th:field="*{movil}" >
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('movil')}"
+                              th:errors="*{movil}"></span>
+                    </td>
+                    <td>
+                        <span class="persona personaNoModificar" th:text ="${empleado.perfilUsuario.rol}" ></span>
+                        <input class="campo personaNoModificar form-control rol" type="hidden" th:field="*{perfilUsuario.rol}" >
+                        <span class="form-text text-danger" role="alert"
+                              th:if="${#fields.hasErrors('perfilUsuario.rol')}"
+                              th:errors="*{perfilUsuario.rol}"></span>
+                    </td>
+
+                    <!-- Autorizacion para creador y admin bd-->
+                    <span sec:authorize="hasAnyAuthority('creadorWeb','encargadoBasesDeDatos')">
+                        <td>
+                            <input class="fila selCheck" type="checkbox"
+                                   name="empleadosBorrado" th:value="${empleado.dniNColegiado}" />
+                        </td>
+                        <td>
+                            <input class="modificar btn btn-secondary" type="button" value="Hab. modif.">
+                            <input class="botonModificarPersonal btn btn-secondary"
+                                   type="submit" value="Modificar">
+                        </td>
+                    </span>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Autorizacion para creador y admin bd-->
+        <input sec:authorize="hasAnyAuthority('creadorWeb','encargadoBasesDeDatos')"
+                id="botonBorrarPersonal" class="btn btn-secondary"
+               type="submit" value="borrar empleados" />
+
+
+        <div th:replace="plantillasPadre/padre :: mensajes"></div>
+    </div>
+</main>
+<footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:src="@{/js/controlBorrado.js}"></script>
+<script th:src="@{/js/borrado.js}"></script>
+<script th:src="@{/js/cambiarUrl.js}"></script>
+<script th:src="@{/js/modificacion.js}"></script>
+<script th:src="@{/js/listado.js}"></script>
+<script th:replace="plantillasPadre/padre :: script"></script>

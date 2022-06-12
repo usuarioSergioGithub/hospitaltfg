@@ -1,0 +1,325 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+/*    zoom: 93%;*/
+}
+.quitarTriang .dropdown-toggle::after{
+    content: none !important;
+}
+.doctores{
+    background: #cccccc1f;
+    margin-top: 50px;
+    border-top: 3px solid #0d5694;
+}
+.dropdown-menu.headerParteAbajo.subElemento {
+    width: auto;
+}
+.doctor{
+    padding: 30px;
+    border-top: 1px solid #000;
+}
+
+.fondoCabecera{
+    background-image: linear-gradient(#f8f9fa63, #f8f9fa63),url("../img/fondoQuienesSomos.jpg");
+    height: 100px;
+    zoom: 2;
+}
+
+.fondoCabecera h1{
+    opacity: 1 !important;
+    padding-top: 20px;
+    /* font-weight: bold; */
+    color: #000;
+    letter-spacing: 6px;
+}
+
+.servicios{
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.fondoAlta {
+    zoom: 90%;
+    background-color: #cccccc38;
+    border-style: double;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.ajustar{
+    margin-top: 12px;
+}
+.modal-backdrop.in {
+    opacity: 0 !important;
+}
+.arriba{
+    top: 30%;
+}
+.modal{
+    background-color: #000000a8;
+}
+.margenes{
+    margin-left: 500px;
+    margin-right: 500px;
+}
+
+.indice {
+    background: #7c8999;
+    color: #fff;
+    display: inline-block;
+    padding: 2px 20px;
+    font-weight: bold;
+    border-radius: 0 0 100px 0;
+}
+
+
+.fondoAlta2 {
+    zoom: 120%;
+    background-color: #cccccc38;
+    /* border-radius: 5%; */
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-style: double;
+}
+body{
+    overflow-x: hidden;
+}
+.btn{
+    background-color: #0161b2d6 !important;
+}
+.contCentrado{
+    margin-left: 35%;
+    margin-top: 20%;
+    zoom: 110%;
+}
+.main-content {
+    margin-bottom: 65px
+}
+#contenedorMenu {
+    position: fixed;
+    width: 100%;
+}
+
+#header {
+    text-align: left;
+    background-repeat:no-repeat;
+    background-color:#fff;
+}
+.medicos{
+    color: #000;
+    text-align: center;
+    opacity: 0.2;
+    background-image: url("../img/medicos.png");
+    width: 100%;
+}
+
+.headerParteArriba {
+    float: left;
+    width: 100%;
+
+}
+
+.navbar-nav .dropdown-menu {
+     position: absolute;
+}
+
+.headerParteArriba .navbar-brand {
+    float: left;
+    height: auto;
+}
+
+.contHeaderDcha {
+    float: right;
+    padding: 10px;
+}
+
+
+main{
+
+    margin-top: 150px;
+    padding-bottom: 100px;
+
+}
+
+.menuSize{
+        font-size: 22px !important;
+}
+
+.icono{
+    font-size: 25px;
+    list-style: none;
+}
+
+.cadaDato span.icono {
+    float: left;
+    background: #157fda;
+    text-align: center;
+    padding: 5px 7px;
+    margin-right: 15px;
+    color: #fff;
+	transition: ease all 1s;/* Animacion de transicion */
+
+}
+
+.cadaDato {
+    float: left;
+    margin-left: 50px;
+}
+
+.valorIcono {
+    float: left;
+    margin: 4px 0;
+}
+
+.headerParteAbajo {
+    float: left;
+    width: 100%;
+    background: #0d5694 !important;
+    margin-top: -10px;
+    box-shadow: 0px 10px 20px -10px #000000;
+    
+}
+.headerParteAbajo nav.menu {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    float: left;
+    cursor: pointer;
+/*    zoom: 120%;*/
+/*    width: 2000px;*/
+}
+/*
+.icono a, ul li a{
+    font-size: 10px;
+}
+*/
+
+
+/* tamaño caja de color verde -> elementos  */
+.desplegable li > a {
+    color: #fff;
+    font-size: 17px;
+    padding: 20px 20px;
+    
+
+}
+/* tamaño caja de color verde -> sub-elementos  */
+.desplegable .subElemento > a {
+    color: #fff;
+    font-size: 17px;
+    padding: 10px 20px;
+    text-decoration: none;
+    
+}
+
+/* Aplicar la sombra de color blanco */
+/* Con focus especifico el elemento al que he clickado */
+.desplegable li > a:hover,
+.desplegable li > a:focus, 
+.desplegable li > a.active {
+    color: #fff;
+    background: #258b76 !important;
+    box-shadow: 5px 5px 0 0px #fff;
+}
+
+.desplegable .subElemento > a:hover,
+.desplegable .subElemento > a:focus, 
+.desplegable .subElemento > a.active {
+    color: #fff;
+    background: #258b76 !important;
+}
+
+
+
+
+
+
+
+.pie {
+    padding: 20px 0px;
+    background: #0d5694;
+    color: #fff;
+	float:left;
+	width:100%;
+/*	zoom: 120%;*/
+}
+.selCheck{
+    cursor: pointer;
+    /* font-size: 40px; */
+    width: 30px;
+    text-align: center;
+    height: 20px;
+    align-items: center;
+}
+
+
+.textoFooter p {
+    margin: 0;
+    text-align: center;
+}
+.textoFooter p {
+    margin: 0;
+    color: #fff;
+}
+.redesSociales li a i {
+    color: #fff;
+    font-size: 24px;
+    margin-right: 20px;
+}
+.redesSociales li a i {
+    color: #fff;
+    font-size: 24px;
+    margin-right: 20px;
+}
+.redesSociales {
+    padding: 0;
+    list-style: none;
+    float: left;
+    width: 100%;
+	margin:0;
+}
+.redesSociales {float:left;}
+
+.redesSociales li {
+    float: right;
+    margin: 0;
+}
+
+.contenedorFooter {
+    background: #fff;
+    color: #fff;
+    font-size: 14px;
+    float: left;
+    width: 100%;
+
+}
+/*.hacerZoom{
+    zoom: 100%;
+}*/
+.navbar-nav{
+    flex-direction: row !important;
+}
+
+.nav-link{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+.navbar-inverse {
+    background: #0d5694 !important;
+    padding: 20px;
+/*    zoom: 120%;*/
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<header th:replace="plantillasPadre/padre :: header"></header>
+    <main>
+
+        <h1> Listado del inventario</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Tipo de artíc.</th>
+                <th>Fabricante</th>
+                <th>Modelo</th>
+                <th>Descripción</th>
+                <th>Fecha de compra</th>
+                <th>Precio</th>
+                <th>Unidades</th>
+                <th>Especialidad</th>
+                <th>#</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="contenedorFila" th:each="articulo : ${inventario}">
+                <form th:action="@{/centro/modificarArticulo}" method="post" th:object="${articulo}">
+
+                    <td><input name="tipoArticulo" class="form-control" th:value ="${articulo.tipoArticulo}" readonly ></td>
+                    <td><input name="fabricante" class="form-control" th:value ="${articulo.fabricante}" readonly></td>
+
+                    <td>
+                        <input name="modelo"
+                               type="text" readonly class="persona form-control"
+                               th:value ="${articulo.modelo}" >
+                    </td>
+                    <td><input name="descripcion" class="form-control" th:value="${articulo.descripcion}"></td>
+                    <td><input name="fechaCompra" class="form-control" readonly th:value ="${articulo.fechaCompra}"></td>
+                    <td><input type="number" step="0.01" name="precioArticulo" class="form-control formatear" th:value ="${articulo.precioArticulo}" ></td>
+
+                    <td>
+                        <input name="unidades"
+                               type="number" min="0" class=""
+                               th:value ="${articulo.unidades}" >
+                    </td>
+                    <td><input name="especialidad" class="form-control" th:value ="${articulo.especialidad.nombreEspecialidad}" readonly></td>
+                    <td>
+                        <input class="btn btn-secondary" type="submit" value="Modificar">
+                    </td>
+
+                </form>
+            </tr>
+            </tbody>
+        </table>
+        <div th:replace="plantillasPadre/padre :: mensajes"></div>
+    </main>
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:replace="plantillasPadre/padre :: script"></script>

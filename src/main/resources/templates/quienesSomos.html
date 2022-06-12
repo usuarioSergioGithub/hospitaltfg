@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" >
+<head th:replace="plantillasPadre/padre :: head"><!---->
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" th:href="@{/css/paginaPrincipal.css}">
+    <header th:replace="plantillasPadre/padre :: header"></header>
+    <main>
+        <div class="fondoCabecera">
+            <h1>Historia del centro</h1>
+        </div>
+        <h1 class="servicios">Más de 130 años al servicio de los españoles</h1>
+
+        <div class="row paddingArriba quienesSomos">
+            <div class="col-md-6">
+                <div class="indexCajaTexto">
+                    <p> El actual Hospital procede del Hospital-Asilo del mismo nombre, fundado en 1888,
+                        con objeto de amparar y educar a niñas huérfanas pobres.
+
+                        Inicia su actividad en la calle Atocha 142, cambiando su domicilio primero a la calle Méndez
+                        Álvaro, posteriormente a la calle Cansares y más tarde a la calle Cabeza, para finalmente
+                        trasladarse en 1928 a los amplios pabellones y jardines de la calle Doctor Esquerdo 83, siendo
+                        oficialmente inaugurado en 1929 por su Altezas Reales las Infantas Doña María Cristina, Doña
+                        Beatriz de Borbón Batemberg, el Sr. Obispo de Madrid-Alcalá D. Leopoldo Eijo Garay y Sor
+                        Verónica de Jesús, por aquel entonces Superiora General de la Congregación.
+
+                        Es entonces cuando comienza la asistencia curativa de niñas lisiadas, escrofulosas y raquíticas
+                        pobres.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img th:src="@{/img/quienesSomosPrimer.jpg}" alt="" class="img-responsive">
+            </div>
+        </div>
+    </main>
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<!--<script th:src="@{/js/localizacion.js}"></script>-->
+<script th:replace="plantillasPadre/padre :: script"></script>

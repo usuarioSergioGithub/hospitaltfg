@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" th:href="@{/css/paginaPrincipal.css}">
+    <header th:replace="plantillasPadre/padre :: header"></header>
+
+    <main>
+        <div class="col"></div>
+        <div id="map" class="map-container-google-2 z-depth-1-half map-container" style="height: 500px">
+
+        </div>
+        <div class="col"></div>
+        <h1 style="text-align: center;">TU CENTRO DE REFERENCIA EN MADRID</h1>
+        <div class="row paddingArriba">
+            <div class="col-md-6">
+                <div class="indexCajaTexto">
+                    <h2>Doctores</h2>
+                    <p> Centramos nuestros esfuerzos en ofrecer una atención
+                        sanitaria de máxima calidad, utilizando la mejor tecnología
+                        y guiados siempre por nuestros firmes valores hospitalarios</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img th:src="@{img/medicoIndex.jpg}" alt="" class="img-responsive">
+            </div>
+        </div>
+
+        <div class="row paddingArriba">
+            <div class="col-md-6">
+                <img th:src="@{img/medico.jpg}" alt="" class="img-responsive segundaImagen">
+            </div>
+            <div class="col-md-6">
+                <div class="indexCajaTexto">
+                    <h2>Servicio de citas</h2>
+                    <p> Tenmos un sistema de gestión de citas.
+                        Desde <a th:href="@{/area/pedircita}">aquí</a> podrás pedir una,
+                        pero también puedes <a th:href="@{/area/citas/totales}">consultar</a> tus citas.
+                        ¿Necesitas ayuda? Ponte en conctacto con nosotros en el número
+                        <a href="tel:917203377">91 720 33 77</a> y un operador podrá ayudarte
+                        e incluso pedirte una cita</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+    <!--defer -> especificar que este script se cargue cuando se ha cargado por completo todo-->
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=crearMapa"
+            defer
+    ></script>
+
+
+    <div th:replace="plantillasPadre/padre :: mensajes"></div>
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:src="@{/js/localizacion.js}"></script>
+<script th:replace="plantillasPadre/padre :: script"></script>

@@ -1,0 +1,87 @@
+.titulo{
+    font-family: 'Raleway',Helvetica,Arial,sans-serif;
+    background: #ffffff;
+    width: 100%;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 60px;
+    color: #000000;
+    text-align: center;
+}
+
+.textoTitulo{
+    font-size: 1em;
+}
+
+.datosCita{
+    border-bottom: 6px solid #D4D7D8;
+    background-color: #0d56940d;
+}
+
+.diaMes{
+    font-family: 'Raleway',Helvetica,Arial,sans-serif;
+    color: #7c8999;
+    min-width: 70px;
+}
+
+.mesNum {
+    font-size: 60px;
+    font-weight: 700;
+}
+
+.mesNom {
+    font-size: 30px;
+    font-weight: 300;
+}
+
+.citaInfoMin {
+    max-width: 100%;
+    padding-top: 25px;
+}
+
+.fechaCita{
+    font-family: 'Raleway',Helvetica,Arial,sans-serif;
+    color: #7c8999;
+    font-weight: 300;
+    font-size: 23px !important;
+    margin-bottom: 10px;
+}
+
+.doctorInfoMin {
+    color: #8c0052;
+    font-family: 'Raleway',Helvetica,Arial,sans-serif;
+    font-size: 16px !important;
+    letter-spacing: -0.2px;
+    font-weight: 600;
+}
+
+.acciones {
+    margin-right: 20px;
+}
+
+.btn.botonesacciones {
+    font-weight: 500;
+    margin-top: 105px;
+    max-width: 110px;
+}
+
+.detalles {
+    background-color: #0d5694;
+}
+
+.btn.btn-sm, .input-group-sm .btn {
+    padding: 6px 13px 8px;
+    font-weight: 400;
+}
+
+.btn {
+    font-family: 'Raleway',Helvetica,Arial,sans-serif;
+    border: none;
+    background: #bdc3c7;
+    color: #ffffff;
+    line-height: 22px;
+    text-decoration: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+
+}

@@ -1,0 +1,76 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head">
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="position-absolute top-50 start-50 translate-middle">
+		<div class="row">
+			<div class="col fondoAlta">
+				<h1>Inicio de sesión</h1>
+				<form th:action="@{/login}" method="post">
+
+					<div th:if=${param.error}>
+						<div class="alert alert-danger">Usuario o contraseña
+							incorrectos</div>
+					</div>
+
+					<div th:if=${param.logout}>
+						<div class="alert alert-info">Ha cerrado sesión exitosamente
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label  for="username">Correo: <span class="form-text text-danger">*</span></label> <input id="username"  name="correo" type="text" class="form-control"
+																												   required autofocus="autofocus" placeholder="Introduce tu correo">
+					</div>
+
+					<div class="form-group">
+						<label  for="password">Contraseña : <span class="form-text text-danger">*</span></label> <input
+							id="password" type="password"  name="password" class="form-control" required
+							autofocus="autofocus" placeholder="Introduce tu contraseña">
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<input type="submit" class="form-control btn btn-primary" name="login-submit" id="login-submit"
+									   value="Iniciar sesión" />
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="form-group">
+						<span>Si eres nuevo usuario <a th:href="@{/cliente/alta}">regístrate
+								aqui</a></span>
+				</div>
+				<div class="row">
+					<div class="col">
+						<a th:href="@{/}">
+							Volver a la pantalla principal
+						</a>
+					</div>
+				</div>
+				<div th:replace="plantillasPadre/padre :: mensajes"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script th:replace="plantillasPadre/padre :: script"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
