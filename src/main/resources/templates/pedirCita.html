@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Citas</title>
+</head>
+<body>
+
+    <header th:replace="plantillasPadre/padre :: header"></header>
+    <main>
+
+        <div class="row">
+            <div class="col">
+                <h1 >Reserva de citas</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <form class="row" th:action="@{/mostrarCitas}" method="post" th:object="${citaDto}">
+
+                    <!-- Fila 1 con 2 select-->
+                    <div class="row">
+
+                        <!-- Columna de la izq-->
+                        <div class="col"></div>
+
+                        <!-- Select 1: para las especialidades -->
+                        <select id="especialidades" name="especialidades" class="datoCita col" >
+
+                            <option id="sinSeleccionar"  th:class="${selected}" disabled th:value="null">-- Seleccione --</option>
+
+                            <option th:each="especialidad : ${especialidadesLista}"
+                                    th:selected="${especialidadSelec==especialidad.nombre}"
+                                    th:value="${especialidad.nombre}"
+                                    th:text="${especialidad.nombre}">
+                            </option>
+                        </select>
+
+                        <!-- Select 2: para los doctores -->
+                        <select id="personal" th:disabled="${!habilitar}" name="personal" class="datoCita col">
+
+                            <option th:class="${selected}" th:disabled="${!habilitar}" selected="selected" th:value="null">-- Todos los doctores --</option>
+
+                            <option th:each="doctor : ${personalLista}"
+                                    th:selected="${doctorSelec} eq ${doctor.dniNColegiado} ? 'selected' : 'none'"
+                                    th:value="${doctor.dniNColegiado}"
+                                    th:text="${doctor.apellidos} + ', ' + ${doctor.nombre}">
+                            </option>
+                        </select>
+
+                        <!-- Select 3: para las prestaciones -->
+                        <select id="prestaciones" th:disabled="${!habilitar}" name="prestaciones" class="datoCita col" >
+
+                            <option th:class="${selected}" disabled selected="selected" th:value="null">-- Seleccione --</option>
+
+                            <option th:each="prestacion : ${prestacionesLista}"
+                                    th:selected="${prestacionSelec} eq ${prestacion.nombrePrestacion} ? 'selected' : 'none'"
+                                    th:value="${prestacion.nombrePrestacion}"
+                                    th:text="${prestacion.nombrePrestacion}">
+                            </option>
+                        </select>
+
+                        <!-- Columna de la dcha-->
+                        <div class="col"></div>
+                    </div>
+
+                    <!--Fila 2-->
+                    <div class="row">
+
+                        <!--Columna de la izq-->
+                        <div class="col"></div>
+
+                        <div class="col" sec:authorize="hasAnyAuthority('creadorWeb', 'operador', 'doctor')">
+
+                            <label class="form-check-label">La cita es para mí</label>
+                            <input id="paraMi" th:field="*{paraMi}" type="checkbox" class="form-check-input">
+
+                        </div>
+
+                        <div id="dniPaciente" sec:authorize="hasAnyAuthority('creadorWeb', 'operador', 'doctor')" class="col">
+                            <label class="form-check-label">Introduce el correo del paciente: <span class="form-text text-danger">*</span><br>
+                                <input th:field="*{correoIntroducido}" type="text">
+                                <span class="form-text text-danger" role="alert"
+                                      th:if="${#fields.hasErrors('correoIntroducido')}" th:errors="*{correoIntroducido}"></span>
+                            </label>
+                            <div th:replace="plantillasPadre/padre :: mensajes"></div>
+                        </div>
+
+                        <div class="col"></div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col"></div>
+
+                        <input id="buscar" class="col btn btn-secondary" type="submit" value="Buscar">
+
+                        <div class="col"></div>
+                    </div>
+
+                </form>
+
+                <div class="doctores" th:if="${not #lists.isEmpty(citasDisponibles)}">
+
+                    <div class="row doctor" th:each="cita : ${citasDisponibles}">
+                        <span class="col" th:text ="${cita.nombre + ', ' + cita.apellidos}"></span>
+
+                        <span class="col" th:text = "${#temporals.format(cita.proximaCita, 'dd-MM-yyyy')}"></span>
+
+
+                        <span class="col" th:each="horario : ${cita.horarios}" >
+                            <button
+                                    type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    th:attr=
+                                            "onclick=|cambiarDatos(
+
+                                            '${cita.dniNColegiado}',
+                                            '${cita.proximaCita}',
+                                            '${horario.hora}',
+                                            '${citaDto.prestaciones.nombrePrestacion}',
+                                            '${cita.apellidos}',
+                                            '${cita.nombre}',
+                                            '${cita.especialidad.nombreEspecialidad}',
+                                            '${dniUsuario}'
+                                            )|"
+
+                                    th:text ="${horario.hora}">
+
+                            </button>
+
+                        </span>
+
+
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <form th:action="@{/guardarCita}" method="post" th:object="${citaGuardado}">
+
+                                    <!--Info-->
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">Confirme la reserva de la cita* </h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="fechaCita"> Fecha
+
+                                            <!--Dia de la cita -->
+                                            <input id="diaCitaInput" type="hidden" name="fechaDisponible" value="">
+                                            <span id="diaCita"></span> -
+
+                                            <!-- Hora de la cita -->
+                                            <input id="horaCitaInput" type="hidden" name="hora">
+                                            <span id="horaCita"></span>
+                                        </div>
+
+                                        <!-- Paciente -->
+                                        <p>
+                                            <strong>Paciente: </strong>
+                                            <input id="pacienteInput" type="hidden" name="dniCliente">
+                                            <span id="paciente"></span>
+
+                                        </p>
+
+                                        <!-- Prestación -->
+                                        <p>
+                                            <strong>Prestación: </strong>
+                                            <span id="prestacion"></span>
+                                        </p>
+                                        <hr>
+
+                                        <!-- Doctor -->
+                                        <p>
+                                            <strong>Doctor: </strong>
+                                            <input class="apellidosDoctor" type="hidden" id="dniNColegiado" name="dniNColegiado">
+                                            <!-- Apellidos -->
+                                            <span id="apellidosDoctor"></span>,
+
+                                            <!-- Nombre -->
+                                            <span id="nombreDoctor"></span>
+                                        </p>
+
+                                        <!-- Especialidad -->
+                                        <p>
+                                            <strong>Especialidad: </strong>
+                                            <span id="especialidad"></span>
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-primary" value="RESERVAR">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:src="@{/js/zoom.js}"></script>
+<script th:src="@{/js/cita.js}"></script>
+<script th:src="@{/js/confirmarCita.js}"></script>
+<script th:src="@{/js/formulario.js}"></script>
+<script th:fragment="script" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>

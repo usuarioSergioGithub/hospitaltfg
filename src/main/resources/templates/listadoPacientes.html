@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<header th:replace="plantillasPadre/padre :: header"></header>
+<main>
+    <div>
+        <h1>Listado de clientes</h1>
+        <table class="table">
+            <thead>
+            <div class="row" sec:authorize="hasAnyAuthority('creadorWeb','encargadoBasesDeDatos')">
+                <div class="col"></div>
+                <div class="col alert alert-warning">
+                    Como recordatorio, si un paciente que se va a eliminar tiene cita con el doctor,
+                    la cita automaticamente quedará eliminada.
+                </div>
+                <div class="col"></div>
+            </div>
+            <tr>
+                <th>Fila</th>
+                <th>dni</th>
+                <th>nombre</th>
+                <th>correo</th>
+                <th>apellidos</th>
+                <th>direccion</th>
+                <th>localidad</th>
+                <th>Provincia</th>
+                <th>cp</th>
+                <th>telFijo</th>
+                <th>movil</th>
+
+                <!-- Autorizacion para creador y admin bd-->
+                <span sec:authorize="hasAnyAuthority('creadorWeb','encargadoBasesDeDatos')">
+                    <th>Selc. para borrar</th>
+                    <th>Modificación</th>
+                </span>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="contenedorFila cadaPersona" th:each="paciente, i : ${pacientes}">
+                <form id="formularioCliente" th:object="${clienteDto}" action="#" method="">
+                    <td>
+                        <span class="indice" th:text="'Cli. ' + ${i.index}"></span>
+                    </td>
+                    <td>
+                        <span class="persona personaNoModificar" th:text ="${paciente.dni}" ></span>
+                        <input class="campo dniNColegiado personaNoModificar form-control" type="hidden" th:field="*{dni}">
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('dni')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{dni}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.nombre}" ></span>
+                        <input class="campo" type="hidden" th:field="*{nombre}" >
+                        <h1 th:errors="*{nombre}"></h1>
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('nombre')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{nombre}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.correo}" ></span>
+                        <input class="campo" type="hidden" th:field="*{correo}" >
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('correo')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{correo}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.apellidos}" ></span>
+                        <input class="campo" type="hidden" th:field="*{apellidos}" >
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('apellidos')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{apellidos}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.direccion}"></span>
+                        <input class="campo" type="hidden" th:field="*{direccion}" >
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('direccion')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{direccion}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.localidad}" ></span>
+                        <input class="campo" type="hidden" th:field="*{localidad}" >
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('localidad')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{localidad}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.provincia}" ></span>
+                        <input class="campo" type="hidden" th:field="*{provincia}" >
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('provincia')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{provincia}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.cp}" ></span>
+                        <input class="campo" type="hidden" th:field="*{cp}" >
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('cp')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{cp}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.telFijo}" ></span>
+                        <input class="campo" type="hidden" th:field="*{telFijo}" >
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('telFijo')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{telFijo}"></span>
+                    </td>
+                    <td>
+                        <span class="persona" th:text ="${paciente.movil}" ></span>
+                        <input class="campo" type="hidden" th:field="*{movil}" >
+                        <span th:if="${noValido==paciente.dni} and ${#fields.hasErrors('movil')}"
+                                class="form-text text-danger" role="alert"
+                              th:errors="*{movil}"></span>
+                    </td>
+
+                    <!-- Autorizacion para creador y admin bd-->
+                    <span sec:authorize="hasAnyAuthority('creadorWeb','encargadoBasesDeDatos')">
+                        <td>
+                            <input class="fila selCheck" type="checkbox"
+                                   name="pacientesBorrado" th:value="${paciente.dni}" />
+                        </td>
+                        <td>
+                            <input class="modificar btn btn-secondary" type="button" value="Hab. modif.">
+                            <input class="botonModificarCliente btn btn-secondary"
+                                   type="submit" value="Modificar">
+                        </td>
+                    </span>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Autorizacion para creador y admin bd-->
+        <input sec:authorize="hasAnyAuthority('creadorWeb','encargadoBasesDeDatos')"
+                id="botonBorrarCliente" class="btn btn-secondary" type="submit"
+               value="borrar clientes" />
+        <div th:replace="plantillasPadre/padre :: mensajes"></div>
+    </div>
+</main>
+<footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:src="@{/js/borradoPacientes.js}"></script>
+<script th:src="@{/js/controlBorradoClientes.js}"></script>
+<script th:src="@{/js/cambiarUrlCliente.js}"></script>
+<script th:src="@{/js/modificacion.js}"></script>
+<script th:src="@{/js/listado.js}"></script>
+<script th:replace="plantillasPadre/padre :: script"></script>

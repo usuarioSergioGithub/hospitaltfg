@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+    <link rel="shortcut icon" href="img/icono.jpg">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <header th:replace="plantillasPadre/padre :: header"></header>
+        <main>
+            <h1 th:text="${titulo}"></h1>
+            <div class="col margenes">
+            <span th:if="${intervenciones.size()==0}">
+                <div class="position-absolute top-50 start-50 translate-middle btn-group-vertical">
+                    <p>Todavía no hay ninguna intervención</p>
+                </div>
+            </span>
+
+                <div th:unless="${intervenciones.size()==0}" class="datosCita contenedorFilas"
+                     th:each="intervencion, i : ${intervenciones}">
+
+                    <div class="col">
+
+                        <div class="diaMes">
+                            <div class="row">
+
+                                <!-- Día y mes -->
+                                <div class="col-6">
+                                    <span class="mesNum" th:text ="${#temporals.month(intervencion.intervenciones.fecha)}"></span>
+                                    <p class="mesNom" th:text ="(${#temporals.monthName(intervencion.intervenciones.fecha)})"></p>
+                                </div>
+
+                                <!-- Info -->
+                                <div class="col col-lg-2">
+                                    <div class="citaInfoMin">
+                                        <p class="fechaCita" th:text ="${#temporals.dayOfWeekName(intervencion.intervenciones.fecha)} + ', ' + ${#temporals.hour(intervencion.intervenciones.fecha)}"></p>
+                                        <p class="doctorInfoMin" th:text ="${intervencion.personal.apellidos} + ', ' + ${intervencion.personal.nombre}">
+
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Detalles -->
+                                <a class="detalles col-md-auto btn btn-primary btn-sm botonesacciones span2 pull-right"
+                                   th:attr="data-target='#exampleModal' + ${i.index}"
+                                   data-toggle="modal" type="button">Detalles</a>
+
+
+                                <div class="modal fade" th:id="exampleModal + ${i.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Detalles de la intervención</h5>
+
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div>
+
+                                                    <p th:text ="'Fecha: ' + ${#temporals.dayOfWeekName(intervencion.intervenciones.fecha)} + ', ' + ${#temporals.hour(intervencion.intervenciones.fecha)}"></p>
+                                                </div>
+
+                                                <p>
+                                                    <strong>Doctor: </strong>
+                                                    <span th:text ="${intervencion.personal.apellidos} + ', ' + ${intervencion.personal.nombre}"></span>
+                                                </p>
+                                                <p>
+                                                    <strong>Especialidad: </strong>
+                                                    <span th:text="${intervencion.personal.especialidad.nombreEspecialidad}"></span>
+                                                </p>
+                                                <p>
+                                                    <strong>Motivo de la intervención: </strong>
+                                                    <span th:text="${intervencion.intervenciones.descripcion}"></span>
+                                                </p>
+                                                <hr>
+                                                <p>
+                                                    <strong>Precio: </strong>
+                                                    <span th:text="${intervencion.intervenciones.precio} + ' €'"></span>
+                                                </p>
+                                                <p>
+                                                    <strong>Centro: </strong>
+                                                    <span th:text="${centro.nombre}"></span>
+                                                </p>
+                                                <p>
+                                                    <strong>Teléfono: </strong>
+                                                    <span th:text="${centro.telFijo}"></span>
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div th:replace="plantillasPadre/padre :: mensajes"></div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:replace="plantillasPadre/padre :: script"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

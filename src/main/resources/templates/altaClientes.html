@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head"></head>
+<body>
+<main>
+	<div class="position-absolute top-50 start-50 translate-middle">
+		<div class="row">
+
+			<div class="col fondoAlta2">
+				<div th:if=${param.exito}>
+					<div class="alert alert-info">Te has dado de alta.</div>
+				</div>
+
+				<h1>Regístrate</h1>
+				<form th:action="@{/cliente/alta}" method="post" th:object="${cliente}">
+
+					<!-- Fila 1 -->
+					<div class="row">
+
+						<!-- Columna 1 -->
+						<div class="col">
+
+							<!-- DNI -->
+							<div class="form-group">
+								<label class="control-label">
+									DNI : <span class="form-text text-danger">*</span>
+								</label>
+								<input
+										id="dni" type="text" class="form-control" th:field="*{dni}"
+								>
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>
+							</div>
+
+						</div>
+
+						<!-- Columna 2 -->
+						<div class="col">
+
+							<!-- Nombre -->
+							<div class="form-group">
+								<label class="control-label">Nombre : <span class="form-text text-danger">*</span>
+								</label> <input
+									id="nombre"  type="text" class="form-control" th:field="*{nombre}">
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+							</div>
+
+						</div>
+
+						<!-- Columna 3 -->
+						<div class="col">
+
+							<!-- Apellidos -->
+							<div class="form-group">
+								<label class="control-label" >apellidos : <span class="form-text text-danger">*</span></label> <input
+									id="apellidos" type="text" class="form-control" th:field="*{apellidos}"
+							>
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></span>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- Fila 2 -->
+					<div class="row">
+
+						<!-- Columna 1 -->
+						<div class="col">
+
+							<!-- Dirección -->
+							<div class="form-group">
+								<label class="control-label">Dirección : <span class="form-text text-danger">*</span> </label> <input
+									id="direccion" type="text" class="form-control" th:field="*{direccion}"
+							>
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></span>
+							</div>
+
+						</div>
+
+						<!-- Columna 2 -->
+						<div class="col">
+
+							<!-- Localidad -->
+							<div class="form-group">
+								<label class="control-label">Localidad : <span class="form-text text-danger">*</span></label> <input
+									id="localidad" type="text" class="form-control" th:field="*{localidad}"
+							>
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('localidad')}" th:errors="*{localidad}"></span>
+							</div>
+
+						</div>
+
+						<!-- Columna 3 -->
+						<div class="col">
+
+							<!-- Provincia -->
+							<div class="form-group">
+								<label class="control-label">Provincia : <span class="form-text text-danger">*</span></label> <input
+									id="provincia" type="text" class="form-control" th:field="*{provincia}"
+							>
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Fila 3 -->
+					<div class="row">
+
+						<!-- Columna 1 -->
+						<div class="col">
+
+							<!-- Código postal -->
+							<div class="form-group">
+								<label class="control-label">Código Postal : <span class="form-text text-danger">*</span></label> <input
+									id="cp" type="text" class="form-control" th:field="*{cp}"
+							>
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}"></span>
+							</div>
+
+						</div>
+
+						<!-- Columna 2 -->
+						<div class="col">
+
+							<!-- Tel. Fijo -->
+							<div class="form-group">
+								<label class="control-label">Teléfono fijo : </label> <input
+									id="telFijo" type="text" class="form-control" th:field="*{telFijo}"
+									placeholder="Ej: 910197722">
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('telFijo')}" th:errors="*{telFijo}"></span>
+							</div>
+
+						</div>
+
+						<!-- Columna 3 -->
+						<div class="col">
+
+							<!-- Tel. Móvil -->
+							<div class="form-group">
+								<label class="control-label">Teléfono móvil : <span class="form-text text-danger">*</span></label> <input
+									id="movil" type="text" class="form-control" th:field="*{movil}"
+									placeholder="Ej: +34691002776">
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('movil')}" th:errors="*{movil}"></span>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- Fila 4 -->
+					<div class="row">
+
+						<!-- Columna 1 -->
+						<div class="col">
+
+							<!-- Correo -->
+							<div class="form-group">
+								<label class="control-label">Correo electrónico : <span class="form-text text-danger">*</span></label> <input
+									id="correo" type="email" class="form-control" th:field="*{correo}"
+							>
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
+							</div>
+
+						</div>
+
+						<!-- Columna 2 -->
+						<div class="col">
+
+							<!-- Contraseña -->
+							<div class="form-group">
+								<label class="control-label">Contraseña : <span class="form-text text-danger">*</span></label> <input
+									id="password" type="password" class="form-control" th:field="*{password}"
+							>
+								<span class="form-text text-danger" role="alert"
+									  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- Fila 5 -->
+					<div class="row">
+
+						<!-- Columna 1 -->
+						<div class="col">
+
+							<!-- Darme de alta -->
+							<div class="form-group">
+								<button type="submit" class="btn btn-success">Darme de alta</button>
+								<span>Si estas registrado <a th:href="@{/login}">inicia sesión aquí</a></span>
+							</div>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<a th:href="@{/}">
+								Volver a la pantalla principal
+							</a>
+						</div>
+					</div>
+				</form>
+				<div th:replace="plantillasPadre/padre :: mensajes"></div>
+			</div>
+
+		</div>
+	</div>
+</main>
+</body>
+</html>
+<script th:replace="plantillasPadre/padre :: script"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+

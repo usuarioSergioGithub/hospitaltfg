@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <header th:replace="plantillasPadre/padre :: header"></header>
+    <main><!-- class="row position-absolute arriba start-50 translate-middle"-->
+
+        <!-- Titulo -->
+        <div class="titulo">
+            <span class="textoTitulo" th:text="${titulo}"></span>
+        </div>
+
+        <div class="col margenes">
+            <span sec:authorize="hasAnyAuthority('creadorWeb','operador','doctor')">
+                <a th:href="@{/area/citas/totales?filtroSeleccionado=true}">
+                    Mis citas &#9660;
+                </a>
+                <a th:href="@{/area/citas/totales?filtroSeleccionado=false}">
+                    Todas las citas &#9660;
+                </a>
+            </span>
+            <div th:if="${citas.empty}" class="position-absolute top-50 start-50 translate-middle">
+                <div class="row">
+                    <p>Todavía no tienes ninguna cita, <a th:href="@{/area/pedircita}">¿Deseas pedir una?</a> </p>
+                </div>
+
+            </div>
+            <div th:unless="${citas.empty}" class="datosCita contenedorFilas" th:each="cita, i : ${citas}">
+                <div class="col">
+
+
+                    <div class="diaMes">
+                        <div class="row">
+
+                            <!-- Día y mes -->
+                            <div class="col-6">
+                                <span class="mesNum" th:text ="${#temporals.month(cita.fechaDisponible)}"></span>
+                                <p class="mesNom" th:text ="(${#temporals.monthName(cita.fechaDisponible)})"></p>
+                            </div>
+
+                            <!-- Info -->
+                            <div class="col col-lg-2">
+                                <div class="citaInfoMin">
+                                    <p class="fechaCita" th:text ="${#temporals.dayOfWeekName(cita.fechaDisponible)} + ', ' + ${cita.hora}"></p>
+                                    <p class="doctorInfoMin" th:text ="${cita.empleadoDoctor.apellidos} + ', ' + ${cita.empleadoDoctor.nombre}">
+
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <!-- Detalles -->
+                            <a class="detalles col-md-auto btn btn-primary btn-sm botonesacciones span2 pull-right"
+                               th:attr="data-target='#exampleModal' + ${i.index}"
+                               data-toggle="modal" type="button">Detalles</a>
+
+
+                            <div class="modal fade" th:id="exampleModal + ${i.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Datos de la cita</h5>
+
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div>
+                                                Fecha:
+                                                <p th:text="${cita.fechaDisponible} + ' - ' + ${cita.hora}"></p>
+                                            </div>
+                                            <!-- Aqui hacer th if cliente paciente es null muestro los de personal paciente-->
+                                            <p>
+                                                <strong>Paciente: </strong>
+                                                <span th:text="${cita.clientePaciente==null} ? ${cita.empleadoPaciente.nombre} + ' ' + ${cita.empleadoPaciente.apellidos} : ${cita.clientePaciente.nombre} + ' ' + ${cita.clientePaciente.apellidos}"
+                                                ></span>
+                                            </p>
+                                            <p>
+                                                <strong>Especialidad: </strong>
+                                                <span th:text="${cita.empleadoDoctor.especialidad.nombreEspecialidad}"></span>
+                                            </p>
+                                            <hr>
+                                            <p>
+                                                <strong>Especialista: </strong>
+                                                <span th:text="${cita.empleadoDoctor.apellidos} + ', ' + ${cita.empleadoDoctor.nombre}"></span>
+                                            </p>
+                                            <p>
+                                                <strong>Centro: </strong>
+                                                <span th:text="${centro.nombre}"></span>
+                                            </p>
+                                            <p>
+                                                <strong>Teléfono: </strong>
+                                                <span th:text="${centro.telFijo}"></span>
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Detalles -->
+                            <a class="detalles col-md-auto btn btn-primary btn-sm botonesacciones span2 pull-right"
+                               th:attr="data-target='#cancelar' + ${i.index}"
+                               data-toggle="modal" type="button">Cancelar</a>
+
+
+                            <div class="modal fade" th:id="cancelar + ${i.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form th:action="@{/area/citas/borrar}" th:object="${citaIdDto}" method="post">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel2">Cancelar cita</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <p> ¿Desea cancelar la cita para el dia
+                                                    <span th:text="${cita.fechaDisponible}"></span>
+                                                    a las
+                                                    <span th:text="${cita.hora}"></span>
+                                                </p>
+                                                <input type="hidden" name="id" th:value="${cita.id}">
+                                                <input type="hidden" name="hora" th:value="${cita.hora}">
+                                                <input type="hidden" name="dniNColegiado" th:value="${cita.empleadoDoctor.dniNColegiado}">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" class="btn btn-warning" value="Confirmar">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="plantillasPadre/padre :: mensajes"></div>
+        </div>
+    </main>
+
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:replace="plantillasPadre/padre :: script"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

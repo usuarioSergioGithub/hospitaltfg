@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="plantillasPadre/padre :: head"></head>
+<body>
+	<header th:replace="plantillasPadre/padre :: header"></header>
+	<main>
+
+		<div class="position-absolute top-50 start-50 translate-middle">	
+			<div class="row">
+				<h1 class="col" th:text="${titulo}"></h1>
+			</div>
+			<div class="row">
+				<span th:if="${recordatiorio}!=null">
+					<div class="alert alert-warning" role="alert" th:text="${recordatiorio}">
+						
+					</div>
+				</span>
+				<div class="col" th:text="${mensajeConfirmar}"></div>
+				<ul class="list-group" th:each="entidad : ${entidades}">
+				  <li class="list-group-item" th:text="${entidad}"></li>
+				</ul>
+			</div>
+
+			<form class="row" th:action="@{borrar}" method="get">
+			    <input class="btn btn-secondary col" type="submit" value="Confirmar">
+			</form>
+			
+			<!-- Mensajes para el usuario -->
+			<div th:replace="plantillasPadre/padre :: mensajes"></div>
+		</div>
+	</main>
+	<footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:replace="plantillasPadre/padre :: script"></script>

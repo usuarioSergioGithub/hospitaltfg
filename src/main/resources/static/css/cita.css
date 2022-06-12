@@ -1,0 +1,15 @@
+.subtitulo{
+    font-size: 12px;
+    line-height: 18px;
+    color: #2d3845;
+    opacity: 0.8;
+}
+
+
+.fechaCita{
+    font-family: 'Raleway',Helvetica,Arial,sans-serif;
+    color: #7c8999;
+    font-weight: 300;
+    font-size: 23px !important;
+    margin-bottom: 10px;
+}

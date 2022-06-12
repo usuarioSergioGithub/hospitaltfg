@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantillasPadre/padre :: head">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+
+<header th:replace="plantillasPadre/padre :: header"></header>
+    <main>
+        <h1>Listado de facturas de los clientes</h1>
+        <a th:href="@{/consulta/pacientes/facturas}">
+            Facturas totales &#9660;
+        </a>
+        <a th:href="@{/consulta/pacientes/facturas?pagadas=true}">
+            Facturas pagadas &#9660;
+        </a>
+        <a th:href="@{/consulta/pacientes/facturas?sinPagar=true}">
+            Facturas sin pagar &#9660;
+        </a>
+            <table class="table">
+                <thead>
+                <tr>
+
+                    <th>#</th>
+                    <th>Fecha de la intervención</th>
+                    <th>Está pagada</th>
+                    <th>Nombre del paciente</th>
+                    <th>Apellidos del paciente</th>
+                    <th>Correo del paciente</th>
+                    <th>Tel. fijo</th>
+                    <th>Tel. móvil</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="factura, i : ${facturas}">
+
+                    <td th:class="${factura.pagada} ? 'contenedorFila pagada' : 'contenedorFila sinPagar'">
+                        <span th:text ="'Nº: ' + ${i.index}" ></span>
+                    </td>
+
+                    <td>
+                        <span th:text="
+                        ${#temporals.dayOfWeekName(factura.intervenciones.fecha)} +
+                        ', ' + ${#temporals.dayOfWeek(factura.intervenciones.fecha)} + ' de ' +
+                        ${#temporals.monthName(factura.intervenciones.fecha)} + ' de ' +
+                        ${#temporals.year(factura.intervenciones.fecha)}">
+                        </span>
+                    </td>
+                    <td><span class="formatear" th:text ="${factura.pagada}" ></span> </td>
+                    <td><span th:text ="${factura.cliente.nombre}" ></span></td>
+                    <td><span th:text ="${factura.cliente.apellidos}" ></span></td>
+                    <td><span th:text ="${factura.cliente.correo}" ></span></td>
+                    <td><span th:text ="${factura.cliente.telFijo}" ></span></td>
+                    <td><span th:text ="${factura.cliente.movil}" ></span></td>
+
+                </tr>
+                </tbody>
+            </table>
+        <div th:replace="plantillasPadre/padre :: mensajes"></div>
+    </main>
+
+    <footer th:replace="plantillasPadre/padre :: footer"></footer>
+</body>
+</html>
+<script th:src="@{/js/facturas.js}"></script>
+<script th:replace="plantillasPadre/padre :: script"></script>

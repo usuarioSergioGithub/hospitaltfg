@@ -1,0 +1,13 @@
+select {
+    border-color: transparent;
+    border-bottom-color: #000;
+    line-height: normal;
+    color: inherit;
+    border-width: 2px;
+    border-style: solid;
+    padding: 1%;
+    
+}
+select:disabled {
+    opacity: 0.5 !important;
+}
