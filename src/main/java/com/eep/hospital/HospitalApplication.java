@@ -8,6 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 @SpringBootApplication
@@ -15,7 +18,8 @@ import java.util.Properties;
 // CommandLineRunner -> ejecutar antes de que se cargue el contexto de spring
 public class HospitalApplication /*implements CommandLineRunner*/ {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
+
 		SpringApplication.run(HospitalApplication.class, args);
 	}
 
